@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+
+    <persistence-unit name="ru.sbrf.umkozo.kat.rest.jpa.hibernate">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>ru.sbrf.umkozo.kat.rest.model.KatAnswerEntity</class>
+        <class>ru.sbrf.umkozo.kat.rest.model.KatQuestionEntity</class>
+        <class>ru.sbrf.umkozo.kat.rest.model.KatRatingEntity</class>
+        <class>ru.sbrf.umkozo.kat.rest.model.KatSubjectQuestionEntity</class>
+        <class>ru.sbrf.umkozo.kat.rest.model.KatTypeRatingEntity</class>
+        <class>ru.sbrf.umkozo.kat.rest.model.KatUserEntity</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:oracle:thin:@katbackend.westeurope.cloudapp.azure.com:1521:cdb1"/>
+            <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>
+            <property name="hibernate.connection.username" value="C##KAT"/>
+            <property name="hibernate.connection.password" value="pol45ka"/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>
