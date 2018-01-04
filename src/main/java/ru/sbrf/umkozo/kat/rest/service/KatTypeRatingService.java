@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service("katTypeRatingService")
 @Transactional
-public class KatTypeRating implements IKatTypeRating {
+public class KatTypeRatingService implements IKatTypeRatingService {
 
     public KatTypeRatingEntity findById(int id) {
         try {

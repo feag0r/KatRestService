@@ -4,7 +4,7 @@ import ru.sbrf.umkozo.kat.rest.model.KatTypeRatingEntity;
 
 import java.util.List;
 
-public interface IKatTypeRating {
+public interface IKatTypeRatingService {
     KatTypeRatingEntity findById(int id);
 
     KatTypeRatingEntity findByTypeRatingName(String typeRatingName);

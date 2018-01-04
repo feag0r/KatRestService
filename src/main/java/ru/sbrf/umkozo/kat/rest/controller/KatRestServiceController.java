@@ -16,7 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import ru.sbrf.umkozo.kat.rest.model.KatTypeRatingEntity;
 import ru.sbrf.umkozo.kat.rest.model.KatUserEntity;
-import ru.sbrf.umkozo.kat.rest.service.IKatTypeRating;
+import ru.sbrf.umkozo.kat.rest.service.IKatTypeRatingService;
 import ru.sbrf.umkozo.kat.rest.service.IKatUserService;
 
 @RestController
@@ -26,7 +26,7 @@ public class KatRestServiceController {
     IKatUserService katUserService;
 
     @Autowired
-    IKatTypeRating katTypeRatingService;
+    IKatTypeRatingService katTypeRatingService;
 
     //-------------------Retrieve All Users--------------------------------------------------------
      
