@@ -105,7 +105,7 @@ public class KatTypeRating implements IKatTypeRating {
         EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
 
-        List<KatTypeRatingEntity> typeRatingEntityList = entityManager.createQuery("select u from KatUserEntity u").getResultList();
+        List<KatTypeRatingEntity> typeRatingEntityList = entityManager.createQuery("select u from KatTypeRatingEntity u").getResultList();
 
         // Force to load a collections, for we have "Lazy Loading" strategy
         for(KatTypeRatingEntity typeRating : typeRatingEntityList){
