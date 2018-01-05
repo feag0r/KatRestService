@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import ru.sbrf.umkozo.kat.rest.model.KatSubjectQuestionEntity;
 import ru.sbrf.umkozo.kat.rest.model.KatTypeRatingEntity;
 import ru.sbrf.umkozo.kat.rest.model.KatUserEntity;
+import ru.sbrf.umkozo.kat.rest.service.IKatSubjectQuestionService;
 import ru.sbrf.umkozo.kat.rest.service.IKatTypeRatingService;
 import ru.sbrf.umkozo.kat.rest.service.IKatUserService;
 
@@ -28,7 +30,11 @@ public class KatRestServiceController {
     @Autowired
     IKatTypeRatingService katTypeRatingService;
 
-    //-------------------Retrieve All Users--------------------------------------------------------
+    @Autowired
+    IKatSubjectQuestionService katSubjectQuestionService;
+
+    //---------------------------------------------------------------------------------------------------
+    //-------------------Retrieve All Users--------------------------------------------------------------
      
     @RequestMapping(value = "/user/", method = RequestMethod.GET)
     public ResponseEntity<List<KatUserEntity>> listAllUsers() {
@@ -40,7 +46,7 @@ public class KatRestServiceController {
     }
  
 
-    //-------------------Retrieve Single User--------------------------------------------------------
+    //-------------------Retrieve Single User------------------------------------------------------------
      
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KatUserEntity> getUser(@PathVariable("id") int id) {
@@ -54,7 +60,7 @@ public class KatRestServiceController {
     }
      
 
-    //-------------------Create a User--------------------------------------------------------
+    //-------------------Create a User-------------------------------------------------------------------
      
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody KatUserEntity user, UriComponentsBuilder ucBuilder) {
@@ -73,7 +79,7 @@ public class KatRestServiceController {
     }
  
      
-    //------------------- Update a User --------------------------------------------------------
+    //------------------- Update a User -----------------------------------------------------------------
      
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<KatUserEntity> updateUser(@PathVariable("id") int id, @RequestBody KatUserEntity user) {
@@ -93,7 +99,7 @@ public class KatRestServiceController {
         return new ResponseEntity<KatUserEntity>(currentUser, HttpStatus.OK);
     }
  
-    //------------------- Delete a User --------------------------------------------------------
+    //------------------- Delete a User -----------------------------------------------------------------
      
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<KatUserEntity> deleteUser(@PathVariable("id") int id) {
@@ -110,7 +116,7 @@ public class KatRestServiceController {
     }
  
      
-    //------------------- Delete All Users --------------------------------------------------------
+    //------------------- Delete All Users --------------------------------------------------------------
      
     //@RequestMapping(value = "/user/", method = RequestMethod.DELETE)
     //public ResponseEntity<User> deleteAllUsers() {
@@ -120,6 +126,7 @@ public class KatRestServiceController {
     //    return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
     //}
 
+    //---------------------------------------------------------------------------------------------------
     //-------------------Retrieve All TypeRatings--------------------------------------------------------
 
     @RequestMapping(value = "/type_rating/", method = RequestMethod.GET)
@@ -132,7 +139,7 @@ public class KatRestServiceController {
     }
 
 
-    //-------------------Retrieve Single TypeRating--------------------------------------------------------
+    //-------------------Retrieve Single TypeRating------------------------------------------------------
 
     @RequestMapping(value = "/type_rating/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KatTypeRatingEntity> getTypeRating(@PathVariable("id") int id) {
@@ -146,7 +153,7 @@ public class KatRestServiceController {
     }
 
 
-    //-------------------Create a TypeRating--------------------------------------------------------
+    //-------------------Create a TypeRating-------------------------------------------------------------
 
     @RequestMapping(value = "/type_rating/", method = RequestMethod.POST)
     public ResponseEntity<Void> createTypeRating(@RequestBody KatTypeRatingEntity typeRating, UriComponentsBuilder ucBuilder) {
@@ -165,7 +172,7 @@ public class KatRestServiceController {
     }
 
 
-    //------------------- Update a TypeRating --------------------------------------------------------
+    //------------------- Update a TypeRating -----------------------------------------------------------
 
     @RequestMapping(value = "/type_rating/{id}", method = RequestMethod.PUT)
     public ResponseEntity<KatTypeRatingEntity> updateTypeRating(@PathVariable("id") int id, @RequestBody KatTypeRatingEntity typeRating) {
@@ -185,7 +192,7 @@ public class KatRestServiceController {
         return new ResponseEntity<KatTypeRatingEntity>(currentTypeRating, HttpStatus.OK);
     }
 
-    //------------------- Delete a TypeRating --------------------------------------------------------
+    //------------------- Delete a TypeRating -----------------------------------------------------------
 
     @RequestMapping(value = "/type_rating/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<KatTypeRatingEntity> deleteTypeRating(@PathVariable("id") int id) {
@@ -201,4 +208,86 @@ public class KatRestServiceController {
         return new ResponseEntity<KatTypeRatingEntity>(HttpStatus.NO_CONTENT);
     }
 
+
+    //---------------------------------------------------------------------------------------------------
+    //-------------------Retrieve All SubjectQuestions---------------------------------------------------
+
+    @RequestMapping(value = "/subj_quest/", method = RequestMethod.GET)
+    public ResponseEntity<List<KatSubjectQuestionEntity>> listAllSubjectQuestions() {
+        List<KatSubjectQuestionEntity> subjectQuestions = katSubjectQuestionService.findAllSubjectQuestions();
+        if(subjectQuestions.isEmpty()){
+            return new ResponseEntity<List<KatSubjectQuestionEntity>>(HttpStatus.NOT_FOUND); //maybe NO_CONTENT is better?
+        }
+        return new ResponseEntity<List<KatSubjectQuestionEntity>>(subjectQuestions, HttpStatus.OK);
+    }
+
+
+    //-------------------Retrieve Single SubjectQuestion-------------------------------------------------
+
+    @RequestMapping(value = "/subj_quest/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<KatSubjectQuestionEntity> getSubjectQuestion(@PathVariable("id") int id) {
+        System.out.println("Fetching SubjectQuestion with id " + id);
+        KatSubjectQuestionEntity subjectQuestion = katSubjectQuestionService.findById(id);
+        if (subjectQuestion == null) {
+            System.out.println("SubjectQuestion with id " + id + " not found");
+            return new ResponseEntity<KatSubjectQuestionEntity>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<KatSubjectQuestionEntity>(subjectQuestion, HttpStatus.OK);
+    }
+
+
+    //-------------------Create a SubjectQuestion--------------------------------------------------------
+
+    @RequestMapping(value = "/subj_quest/", method = RequestMethod.POST)
+    public ResponseEntity<Void> createSubjectQuestion(@RequestBody KatSubjectQuestionEntity subjectQuestion, UriComponentsBuilder ucBuilder) {
+        System.out.println("Creating SubjectQuestion " + subjectQuestion.getSubject());
+
+        if (katSubjectQuestionService.isSubjectQuestionExist(subjectQuestion)) {
+            System.out.println("A SubjectQuestion with name " + subjectQuestion.getSubject() + " already exist");
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+
+        katSubjectQuestionService.saveSubjectQuestion(subjectQuestion);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/subj_quest/{id}").buildAndExpand(subjectQuestion.getId()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+
+    //------------------- Update a SubjectQuestion ------------------------------------------------------
+
+    @RequestMapping(value = "/subj_quest/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<KatSubjectQuestionEntity> updateSubjectQuestion(@PathVariable("id") int id, @RequestBody KatSubjectQuestionEntity subjectQuestion) {
+        System.out.println("Updating SubjectQuestion " + id);
+
+        KatSubjectQuestionEntity currentSubjectQuestion = katSubjectQuestionService.findById(id);
+
+        if (currentSubjectQuestion==null) {
+            System.out.println("SubjectQuestion with id " + id + " not found");
+            return new ResponseEntity<KatSubjectQuestionEntity>(HttpStatus.NOT_FOUND);
+        }
+
+        currentSubjectQuestion.setSubject(subjectQuestion.getSubject());
+        currentSubjectQuestion.setDescription(subjectQuestion.getDescription());
+
+        katSubjectQuestionService.updateSubjectQuestion(currentSubjectQuestion);
+        return new ResponseEntity<KatSubjectQuestionEntity>(currentSubjectQuestion, HttpStatus.OK);
+    }
+
+    //------------------- Delete a SubjectQuestion ------------------------------------------------------
+
+    @RequestMapping(value = "/subj_quest/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<KatSubjectQuestionEntity> deleteSubjectQuestion(@PathVariable("id") int id) {
+        System.out.println("Fetching & Deleting SubjectQuestion with id " + id);
+
+        KatSubjectQuestionEntity subjectQuestion = katSubjectQuestionService.findById(id);
+        if (subjectQuestion == null) {
+            System.out.println("Unable to delete. SubjectQuestion with id " + id + " not found");
+            return new ResponseEntity<KatSubjectQuestionEntity>(HttpStatus.NOT_FOUND);
+        }
+
+        katSubjectQuestionService.deleteSubjectQuestionById(id);
+        return new ResponseEntity<KatSubjectQuestionEntity>(HttpStatus.NO_CONTENT);
+    }
 }
