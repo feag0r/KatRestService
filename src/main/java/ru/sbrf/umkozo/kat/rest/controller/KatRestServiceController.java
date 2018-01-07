@@ -15,26 +15,28 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import ru.sbrf.umkozo.kat.rest.model.db.*;
-import ru.sbrf.umkozo.kat.rest.model.service.AnswerForSave;
-import ru.sbrf.umkozo.kat.rest.model.service.QuestionForSave;
-import ru.sbrf.umkozo.kat.rest.model.service.RatingForSave;
+import ru.sbrf.umkozo.kat.rest.model.service.*;
 import ru.sbrf.umkozo.kat.rest.service.*;
 
 @RestController
 public class KatRestServiceController {
- 
+
+    private final IKatUserService katUserService;
+    private final IKatTypeRatingService katTypeRatingService;
+    private final IKatSubjectQuestionService katSubjectQuestionService;
+    private final IKatQuestionService katQuestionService;
+    private final IKatAnswerService katAnswerService;
+    private final IKatRatingService katRatingService;
+
     @Autowired
-    IKatUserService katUserService;
-    @Autowired
-    IKatTypeRatingService katTypeRatingService;
-    @Autowired
-    IKatSubjectQuestionService katSubjectQuestionService;
-    @Autowired
-    IKatQuestionService katQuestionService;
-    @Autowired
-    IKatAnswerService katAnswerService;
-    @Autowired
-    IKatRatingService katRatingService;
+    public KatRestServiceController(IKatUserService katUserService, IKatTypeRatingService katTypeRatingService, IKatSubjectQuestionService katSubjectQuestionService, IKatQuestionService katQuestionService, IKatAnswerService katAnswerService, IKatRatingService katRatingService) {
+        this.katUserService = katUserService;
+        this.katTypeRatingService = katTypeRatingService;
+        this.katSubjectQuestionService = katSubjectQuestionService;
+        this.katQuestionService = katQuestionService;
+        this.katAnswerService = katAnswerService;
+        this.katRatingService = katRatingService;
+    }
 
     //---------------------------------------------------------------------------------------------------
     //------------------- Retrieve All Users ------------------------------------------------------------
