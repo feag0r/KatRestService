@@ -1,8 +1,9 @@
 package ru.sbrf.umkozo.kat.rest.service;
 
+import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.sbrf.umkozo.kat.rest.model.KatSubjectQuestionEntity;
+import ru.sbrf.umkozo.kat.rest.model.db.KatSubjectQuestionEntity;
 import ru.sbrf.umkozo.kat.rest.util.JPAUtil;
 
 import javax.persistence.EntityManager;
@@ -101,6 +102,7 @@ public class KatSubjectQuestionService implements IKatSubjectQuestionService {
         entityManager.close();
     }
 
+    @SuppressWarnings("unchecked")
     public List<KatSubjectQuestionEntity> findAllSubjectQuestions() {
         EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
@@ -108,8 +110,8 @@ public class KatSubjectQuestionService implements IKatSubjectQuestionService {
         List<KatSubjectQuestionEntity> subjectQuestionEntityList = entityManager.createQuery("select u from KatSubjectQuestionEntity u").getResultList();
 
         // Force to load a collections, for we have "Lazy Loading" strategy
-        for(KatSubjectQuestionEntity typeRating : subjectQuestionEntityList){
-            typeRating.getKatQuestionsById().size();
+        for(KatSubjectQuestionEntity subjectQuestion : subjectQuestionEntityList){
+            subjectQuestion.getKatQuestionsById().size();
         }
 
         entityManager.getTransaction().commit();
@@ -122,7 +124,7 @@ public class KatSubjectQuestionService implements IKatSubjectQuestionService {
     }
 
     public void deleteAllSubjectQuestions() {
-
+        throw new NotYetImplementedException();
     }
 
     public boolean isSubjectQuestionExist(KatSubjectQuestionEntity subjectQuestion) {

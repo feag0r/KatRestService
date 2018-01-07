@@ -1,6 +1,6 @@
 package ru.sbrf.umkozo.kat.rest.service;
 
-import ru.sbrf.umkozo.kat.rest.model.KatTypeRatingEntity;
+import ru.sbrf.umkozo.kat.rest.model.db.KatTypeRatingEntity;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package ru.sbrf.umkozo.kat.rest.service;
 
-import ru.sbrf.umkozo.kat.rest.model.KatUserEntity;
+import ru.sbrf.umkozo.kat.rest.model.db.KatUserEntity;
 
 import java.util.List;
 

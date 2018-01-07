@@ -1,8 +1,9 @@
 package ru.sbrf.umkozo.kat.rest.service;
 
+import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.sbrf.umkozo.kat.rest.model.KatUserEntity;
+import ru.sbrf.umkozo.kat.rest.model.db.KatUserEntity;
 import ru.sbrf.umkozo.kat.rest.util.JPAUtil;
 
 import javax.persistence.EntityManager;
@@ -152,7 +153,7 @@ public class KatUserService implements IKatUserService {
     }
 
     public void deleteAllUsers() {
-
+        throw new NotYetImplementedException();
     }
 
     public boolean isUserExist(KatUserEntity user) {

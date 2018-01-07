@@ -1,6 +1,6 @@
 package ru.sbrf.umkozo.kat.rest.service;
 
-import ru.sbrf.umkozo.kat.rest.model.KatSubjectQuestionEntity;
+import ru.sbrf.umkozo.kat.rest.model.db.KatSubjectQuestionEntity;
 
 import java.util.List;
 

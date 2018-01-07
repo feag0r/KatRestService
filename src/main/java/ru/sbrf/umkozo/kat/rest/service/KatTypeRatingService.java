@@ -1,8 +1,9 @@
 package ru.sbrf.umkozo.kat.rest.service;
 
+import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.sbrf.umkozo.kat.rest.model.KatTypeRatingEntity;
+import ru.sbrf.umkozo.kat.rest.model.db.KatTypeRatingEntity;
 import ru.sbrf.umkozo.kat.rest.util.JPAUtil;
 
 import javax.persistence.EntityManager;
@@ -101,6 +102,7 @@ public class KatTypeRatingService implements IKatTypeRatingService {
         entityManager.close();
     }
 
+    @SuppressWarnings("unchecked")
     public List<KatTypeRatingEntity> findAllTypeRatings() {
         EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
@@ -122,7 +124,7 @@ public class KatTypeRatingService implements IKatTypeRatingService {
     }
 
     public void deleteAllTypeRatings() {
-
+        throw new NotYetImplementedException();
     }
 
     public boolean isTypeRatingExist(KatTypeRatingEntity typeRating) {
