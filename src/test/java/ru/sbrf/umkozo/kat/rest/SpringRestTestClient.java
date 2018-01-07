@@ -1,12 +1,4 @@
 package ru.sbrf.umkozo.kat.rest;
- 
-import java.net.URI;
-import java.util.LinkedHashMap;
-import java.util.List;
- 
-import org.springframework.web.client.RestTemplate;
-
-import ru.sbrf.umkozo.kat.rest.model.KatUserEntity;
 
 public class SpringRestTestClient {
  

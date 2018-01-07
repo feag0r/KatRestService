@@ -1,4 +1,4 @@
-package ru.sbrf.umkozo.kat.rest.model;
+package ru.sbrf.umkozo.kat.rest.model.db;
 
 import javax.persistence.*;
 
