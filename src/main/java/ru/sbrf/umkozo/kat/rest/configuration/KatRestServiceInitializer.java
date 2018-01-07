@@ -1,8 +1,8 @@
 package ru.sbrf.umkozo.kat.rest.configuration;
 
-import javax.servlet.Filter;
-
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
 
 public class KatRestServiceInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
  
